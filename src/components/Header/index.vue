@@ -71,11 +71,17 @@ export default {
       // 2、路由传参参数有几种  params和query
       // this.$router.push('/search/' + this.keyword + '?keyword1=' + this.keyword.toUpperCase())
       // this.$router.push(`/search/${this.keyword}?keyword1=${this.keyword.toUpperCase()}`)
+      // this.$router.push({
+      //   name: "search",
+      //   query: { keyword1: this.keyword.toUpperCase() },
+      //   params: { keyword: this.keyword },
+      // }).catch(() => {});
+
       this.$router.push({
         name: "search",
         query: { keyword1: this.keyword.toUpperCase() },
         params: { keyword: this.keyword },
-      });
+      })
 
       // 3、能不能不用name,用path和params参数配合去写
       // 答：不能
