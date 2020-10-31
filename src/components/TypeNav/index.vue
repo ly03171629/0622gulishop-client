@@ -2,72 +2,134 @@
   <!-- 商品分类导航 -->
   <div class="type-nav">
     <div class="container">
-      <div @mouseleave="currentIndex = -1">
+      <div @mouseleave="moveDivOut" @mouseenter="isShow = true">
         <h2 class="all">全部商品分类</h2>
-        <div class="sort">
-          <div class="all-sort-list2">
-            <div
-              class="item"
-              v-for="(c1, index) in categoryList"
-              :key="c1.categoryId"
-              :class="{ item_on: currentIndex === index }"
-              @mouseenter="moveIn(index)"
-            >
-              <h3>
-                <router-link
+        <transition name="sort">
+          <div class="sort" v-show="isShow">
+            <div class="all-sort-list2" @click="toSearch">
+              <!-- <h2>嘿嘿</h2> -->
+              <div
+                class="item"
+                v-for="(c1, index) in categoryList"
+                :key="c1.categoryId"
+                :class="{ item_on: currentIndex === index }"
+                @mouseenter="moveIn(index)"
+              >
+                <h3>
+                  <!-- 第一种  使用声明式导航，会导致最终使用的组件标签很多，代表组件对象就很多，内存占用很大，效率不高 -->
+                  <!-- <router-link
                   :to="{
                     name: 'search',
                     query: {
-                      category1Name: c1.categoryName,
+                      categoryName: c1.categoryName,
                       category1Id: c1.categoryId,
                     },
                   }"
-                >{{ c1.categoryName }}</router-link>
-                <!-- <a href="">{{ c1.categoryName }}</a> -->
-              </h3>
-              <div class="item-list clearfix">
-                <div class="subitem">
-                  <dl
-                    class="fore"
-                    v-for="(c2, index) in c1.categoryChild"
-                    :key="c2.categoryId"
+                  >{{ c1.categoryName }}</router-link> -->
+                  <!-- 把声明式导航改为编程式导航，可以缓解效率不高的问题，但是编程式导航每个a标签都要添加事件，代表最终定义的回调函数
+                  又很多，占用内存仍然很大，效率改善不大 -->
+                  <!-- <a
+                  href="javascript:;"
+                  @click="
+                    $router.push({
+                      name: 'search',
+                      query: {
+                        categoryName: c1.categoryName,
+                        category1Id: c1.categoryId,
+                      },
+                    })
+                  "
+                  >{{ c1.categoryName }}</a
+                > -->
+                  <!-- 事件委派就可以把回调函数所占内存降到最低，效率更高 -->
+                  <a
+                    href="javascript:;"
+                    :data-categoryName="c1.categoryName"
+                    :data-category1Id="c1.categoryId"
+                    >{{ c1.categoryName }}</a
                   >
-                    <dt>
-                      <!-- <a href="">{{ c2.categoryName }}</a> -->
-                      <router-link
+                </h3>
+                <div class="item-list clearfix">
+                  <div class="subitem">
+                    <dl
+                      class="fore"
+                      v-for="(c2, index) in c1.categoryChild"
+                      :key="c2.categoryId"
+                    >
+                      <dt>
+                        <!-- <router-link
                         :to="{
                           name: 'search',
                           query: {
-                            category2Name: c2.categoryName,
+                            categoryName: c2.categoryName,
                             category2Id: c2.categoryId,
                           },
                         }"
                       >
-                      {{ c2.categoryName }}</router-link>
-                    </dt>
-                    <dd>
-                      <em
-                        v-for="(c3, index) in c2.categoryChild"
-                        :key="c3.categoryId"
-                      >
-                        <!-- <a href="">{{ c3.categoryName }}</a> -->
-                        <router-link
+                        {{ c2.categoryName }}</router-link> -->
+                        <!-- <a
+                        href="javascript:;"
+                        @click="
+                          $router.push({
+                            name: 'search',
+                            query: {
+                              categoryName: c2.categoryName,
+                              category2Id: c2.categoryId,
+                            },
+                          })
+                        "
+                        >{{ c2.categoryName }}</a
+                      > -->
+                        <a
+                          href="javascript:;"
+                          :data-categoryName="c2.categoryName"
+                          :data-category2Id="c2.categoryId"
+                          >{{ c2.categoryName }}</a
+                        >
+                      </dt>
+                      <dd>
+                        <em
+                          v-for="(c3, index) in c2.categoryChild"
+                          :key="c3.categoryId"
+                        >
+                          <!-- <router-link
                           :to="{
                             name: 'search',
                             query: {
-                              category3Name: c3.categoryName,
+                              categoryName: c3.categoryName,
                               category3Id: c3.categoryId,
                             },
                           }"
-                        >{{ c3.categoryName }}</router-link>
-                      </em>
-                    </dd>
-                  </dl>
+                          >{{ c3.categoryName }}</router-link> -->
+
+                          <!-- <a
+                          href="javascript:;"
+                          @click="
+                            $router.push({
+                              name: 'search',
+                              query: {
+                                categoryName: c3.categoryName,
+                                category3Id: c3.categoryId,
+                              },
+                            })
+                          "
+                          >{{ c3.categoryName }}</a
+                        > -->
+                          <a
+                            href="javascript:;"
+                            :data-categoryName="c3.categoryName"
+                            :data-category3Id="c3.categoryId"
+                            >{{ c3.categoryName }}</a
+                          >
+                        </em>
+                      </dd>
+                    </dl>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </transition>
       </div>
       <nav class="nav">
         <a href="###">服装城</a>
@@ -92,15 +154,21 @@ export default {
   data() {
     return {
       currentIndex: -1, //对比和移入的那个index是否一样
+      isShow: true, //控制三级分类 在search页初始化隐藏  在home页初始化显示
     };
   },
   mounted() {
-    this.getCategoryList();
+    if (this.$route.path !== "/home") {
+      this.isShow = false;
+    }
+    // this.getCategoryList(); 
+    //原本请求三级分类的数据在这发请求，但是不好，首页和search页都用到这个组件
+    // 切换的时候会发两次请求
   },
   methods: {
-    getCategoryList() {
-      this.$store.dispatch("getCategoryList");
-    },
+    // getCategoryList() {
+    //   this.$store.dispatch("getCategoryList");
+    // },
 
     // moveIn(index){
     //   this.currentIndex = index
@@ -121,7 +189,54 @@ export default {
       { trailing: false }
     ),
 
-    // _.throttle(renewToken, 300000, { 'trailing': false });
+    moveDivOut() {
+      this.currentIndex = -1;
+      if (this.$route.path !== "/home") {
+        this.isShow = false;
+      }
+    },
+
+    toSearch(event) {
+      // 这个函数是上面事件委派后的回调函数
+      // 这个函数可以被div中所有的元素 点击后触发
+      // 1我们得去判断点击的是不是我们要委派的a标签
+      // 2我们点击的a标签有三种，分别带的参数是不同的，参数我们得区别开来
+
+      let target = event.target;
+
+      let data = target.dataset;
+      // console.log(data)
+      let { categoryname, category1id, category2id, category3id } = data;
+
+      if (categoryname) {
+        let location = {
+          name: "search",
+        };
+
+        //categoryname 存在代表点的就是a标签
+        let query = {
+          categoryName: categoryname,
+        };
+
+        if (category1id) {
+          query.category1Id = category1id;
+        } else if (category2id) {
+          query.category2Id = category2id;
+        } else {
+          query.category3Id = category3id;
+        }
+
+        location.query = query;
+
+
+        if(this.$route.params){
+          location.params = this.$route.params
+        }
+
+
+        this.$router.push(location);
+      }
+    },
   },
   computed: {
     //拿state和getters是在计算属性当中去获取
@@ -185,8 +300,24 @@ export default {
       width: 210px;
       height: 461px;
       position: absolute;
-      background: #fafafa;
+      // background: #fafafa;
+      background: skyblue;
       z-index: 999;
+
+
+      &.sort-enter{
+        opacity: 0;
+        height: 0;
+      }
+
+      &.sort-enter-active{
+        transition: all .5s;
+      }
+
+      &.sort-enter-to{
+        opacity:1;
+        height:461px;
+      }
 
       .all-sort-list2 {
         .item {

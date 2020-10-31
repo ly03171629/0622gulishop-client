@@ -77,11 +77,19 @@ export default {
       //   params: { keyword: this.keyword },
       // }).catch(() => {});
 
-      this.$router.push({
+
+      let location = {
         name: "search",
         // query: { keyword1: this.keyword.toUpperCase() },
         params: { keyword: this.keyword },
-      })
+      }
+
+      if(this.$route.query){
+        location.query = this.$route.query
+      }
+
+
+      this.$router.push(location)
 
       // 3、能不能不用name,用path和params参数配合去写
       // 答：不能
