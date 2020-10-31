@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from '@/router'
 import store from '@/store'
-import '@/api' //这里直接引入api文件，那么api文件就会运行
+// import '@/api' //这里直接引入api文件，那么api文件就会运行
 
 // import {reqCategoryList} from '@/api'
 // reqCategoryList()

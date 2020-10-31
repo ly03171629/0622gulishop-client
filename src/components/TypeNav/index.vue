@@ -2,7 +2,73 @@
   <!-- 商品分类导航 -->
   <div class="type-nav">
     <div class="container">
-      <h2 class="all">全部商品分类</h2>
+      <div @mouseleave="currentIndex = -1">
+        <h2 class="all">全部商品分类</h2>
+        <div class="sort">
+          <div class="all-sort-list2">
+            <div
+              class="item"
+              v-for="(c1, index) in categoryList"
+              :key="c1.categoryId"
+              :class="{ item_on: currentIndex === index }"
+              @mouseenter="moveIn(index)"
+            >
+              <h3>
+                <router-link
+                  :to="{
+                    name: 'search',
+                    query: {
+                      category1Name: c1.categoryName,
+                      category1Id: c1.categoryId,
+                    },
+                  }"
+                >{{ c1.categoryName }}</router-link>
+                <!-- <a href="">{{ c1.categoryName }}</a> -->
+              </h3>
+              <div class="item-list clearfix">
+                <div class="subitem">
+                  <dl
+                    class="fore"
+                    v-for="(c2, index) in c1.categoryChild"
+                    :key="c2.categoryId"
+                  >
+                    <dt>
+                      <!-- <a href="">{{ c2.categoryName }}</a> -->
+                      <router-link
+                        :to="{
+                          name: 'search',
+                          query: {
+                            category2Name: c2.categoryName,
+                            category2Id: c2.categoryId,
+                          },
+                        }"
+                      >
+                      {{ c2.categoryName }}</router-link>
+                    </dt>
+                    <dd>
+                      <em
+                        v-for="(c3, index) in c2.categoryChild"
+                        :key="c3.categoryId"
+                      >
+                        <!-- <a href="">{{ c3.categoryName }}</a> -->
+                        <router-link
+                          :to="{
+                            name: 'search',
+                            query: {
+                              category3Name: c3.categoryName,
+                              category3Id: c3.categoryId,
+                            },
+                          }"
+                        >{{ c3.categoryName }}</router-link>
+                      </em>
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <nav class="nav">
         <a href="###">服装城</a>
         <a href="###">美妆馆</a>
@@ -13,46 +79,51 @@
         <a href="###">有趣</a>
         <a href="###">秒杀</a>
       </nav>
-      <div class="sort">
-        <div class="all-sort-list2">
-          <div class="item" v-for="(c1,index) in categoryList" :key="c1.categoryId">
-            <h3>
-              <a href="">{{c1.categoryName}}</a>
-            </h3>
-            <div class="item-list clearfix">
-              <div class="subitem">
-                <dl class="fore" v-for="(c2,index) in c1.categoryChild" :key="c2.categoryId">
-                  <dt>
-                    <a href="">{{c2.categoryName}}</a>
-                  </dt>
-                  <dd>
-                    <em v-for="(c3,index) in c2.categoryChild" :key="c3.categoryId">
-                      <a href="">{{c3.categoryName}}</a>
-                    </em>
-                  </dd>
-                </dl>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+// import _ from 'lodash' 造成体积过大
+import throttle from "lodash/throttle";
+import { mapState } from "vuex";
 export default {
   name: "",
-  mounted(){
-    this.getCategoryList()
+  data() {
+    return {
+      currentIndex: -1, //对比和移入的那个index是否一样
+    };
   },
-  methods:{
-    getCategoryList(){
-      this.$store.dispatch('getCategoryList')
-    }
+  mounted() {
+    this.getCategoryList();
   },
-  computed:{
+  methods: {
+    getCategoryList() {
+      this.$store.dispatch("getCategoryList");
+    },
+
+    // moveIn(index){
+    //   this.currentIndex = index
+    //   console.log(index)
+    // },
+
+    // moveIn:function(index){
+    //   this.currentIndex = index
+    //   console.log(index)
+    // }
+
+    moveIn: throttle(
+      function (index) {
+        this.currentIndex = index;
+        console.log(index);
+      },
+      50,
+      { trailing: false }
+    ),
+
+    // _.throttle(renewToken, 300000, { 'trailing': false });
+  },
+  computed: {
     //拿state和getters是在计算属性当中去获取
     //拿actions和mutations是在methods当中去获取
 
@@ -70,10 +141,9 @@ export default {
 
     // 只能使用对象形式
     ...mapState({
-      categoryList: state => state.home.categoryList
-    })
-
-  }
+      categoryList: (state) => state.home.categoryList,
+    }),
+  },
 };
 </script>
 
@@ -187,7 +257,7 @@ export default {
             }
           }
 
-          &:hover {
+          &.item_on {
             background-color: hotpink;
             .item-list {
               display: block;
