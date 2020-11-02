@@ -23,7 +23,6 @@ export default {
     getCategoryList() {
       this.$store.dispatch("getCategoryList");
     },
-
   }
 }
 </script>

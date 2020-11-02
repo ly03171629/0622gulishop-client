@@ -209,11 +209,11 @@ export default {
       let { categoryname, category1id, category2id, category3id } = data;
 
       if (categoryname) {
+        //categoryname 存在代表点的就是a标签
         let location = {
           name: "search",
         };
-
-        //categoryname 存在代表点的就是a标签
+        
         let query = {
           categoryName: categoryname,
         };

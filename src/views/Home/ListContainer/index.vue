@@ -3,29 +3,25 @@
   <div class="list-container">
     <div class="sortList clearfix">
       <div class="center">
+        <SliderLoop :bannerList="bannerList"></SliderLoop>
         <!--banner轮播-->
-        <div class="swiper-container" id="mySwiper">
+        <!-- <div class="swiper-container" ref="bannerSwiper">
           <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img src="./images/banner1.jpg" />
+            <div
+              class="swiper-slide"
+              v-for="(banner, index) in bannerList"
+              :key="banner.id"
+            >
+              <img :src="banner.imgUrl" />
             </div>
-            <!-- <div class="swiper-slide">
-              <img src="./images/banner2.jpg" />
-            </div>
-            <div class="swiper-slide">
-              <img src="./images/banner3.jpg" />
-            </div>
-            <div class="swiper-slide">
-              <img src="./images/banner4.jpg" />
-            </div> -->
-          </div>
+          </div> -->
           <!-- 如果需要分页器 -->
-          <div class="swiper-pagination"></div>
+          <!-- <div class="swiper-pagination"></div> -->
 
           <!-- 如果需要导航按钮 -->
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
-        </div>
+          <!-- <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div> -->
+        <!-- </div> -->
       </div>
       <div class="right">
         <div class="news">
@@ -101,8 +97,79 @@
 </template>
 
 <script>
+import { mapGetters, mapState } from "vuex";
+import Swiper from "swiper";
+// import "swiper/css/swiper.css";
+
 export default {
   name: "",
+  data() {
+    return {
+      count: 0,
+    };
+  },
+  mounted() {
+    //本来我们想把swiper实例在这里去做，但是发现不行
+    //原因： swiper实例必须在页面结构完全形成才有效果
+    //此时，我们发请求获取数据，数据还没有，页面又是根据数据去渲染的，所以页面结构一定没有完全形成
+    //导致swiper没作用
+    // 一句话，在mounted内部保证不了页面结构完全形成之后再去 实例化swiper
+    this.getBannerList();
+
+    // 在这里去实例化swiper不可以
+    // setTimeout(() => {
+    //   new Swiper(this.$refs.bannerSwiper, {
+    //     loop: true, // 循环模式选项
+
+    //     // 如果需要分页器
+    //     pagination: {
+    //       el: ".swiper-pagination",
+    //     },
+
+    //     // 如果需要前进后退按钮
+    //     navigation: {
+    //       nextEl: ".swiper-button-next",
+    //       prevEl: ".swiper-button-prev",
+    //     },
+    //   });
+    // }, 2000);
+  },
+  methods: {
+    getBannerList() {
+      this.$store.dispatch("getBannerList");
+    },
+  },
+  computed: {
+    ...mapState({
+      bannerList: (state) => state.home.bannerList,
+    }),
+    // ...mapGetters(['banners'])
+  },
+  // watch: {
+  //   bannerList: {
+  //     immediate:true, //在listContainer组件轮播图当中没有任何用，只是为了让和floor代码保持一致
+  //     handler(newVal, oldVal) {
+  //       //在页面最近一次更新完成之后执行$nextTick传递的回调函数
+  //       //updated 这个钩子也是页面数据更新完成执行，但是不是一次，只要页面数据有更新它就会执行
+  //       this.$nextTick(() => {
+  //         new Swiper(this.$refs.bannerSwiper, {
+  //           loop: true, // 循环模式选项
+
+  //           // 如果需要分页器
+  //           pagination: {
+  //             el: ".swiper-pagination",
+  //           },
+
+  //           // 如果需要前进后退按钮
+  //           navigation: {
+  //             nextEl: ".swiper-button-next",
+  //             prevEl: ".swiper-button-prev",
+  //           },
+  //         });
+  //       });
+  //     },
+  //   },
+  // },
 };
 </script>
 
