@@ -102,7 +102,7 @@ export default {
     //   },
     // });
   },
-  watch: {
+  // watch: {
     // floor(){
     //       //在页面最近一次更新完成之后执行$nextTick传递的回调函数
     //     //updated 这个钩子也是页面数据更新完成执行，但是不是一次，只要页面数据有更新它就会执行
@@ -125,30 +125,30 @@ export default {
     // }
 
 
-    floor: {
-      // immediate:true,
-      handler(newVal, oldVal) {
-        //在页面最近一次更新完成之后执行$nextTick传递的回调函数
-        //updated 这个钩子也是页面数据更新完成执行，但是不是一次，只要页面数据有更新它就会执行
-        this.$nextTick(() => {
-          new Swiper(this.$refs.floorSwiper, {
-            loop: true, // 循环模式选项
+    // floor: {
+    //   // immediate:true,
+    //   handler(newVal, oldVal) {
+    //     //在页面最近一次更新完成之后执行$nextTick传递的回调函数
+    //     //updated 这个钩子也是页面数据更新完成执行，但是不是一次，只要页面数据有更新它就会执行
+    //     this.$nextTick(() => {
+    //       new Swiper(this.$refs.floorSwiper, {
+    //         loop: true, // 循环模式选项
 
-            // 如果需要分页器
-            pagination: {
-              el: ".swiper-pagination",
-            },
+    //         // 如果需要分页器
+    //         pagination: {
+    //           el: ".swiper-pagination",
+    //         },
 
-            // 如果需要前进后退按钮
-            navigation: {
-              nextEl: ".swiper-button-next",
-              prevEl: ".swiper-button-prev",
-            },
-          });
-        });
-      },
-    },
-  },
+    //         // 如果需要前进后退按钮
+    //         navigation: {
+    //           nextEl: ".swiper-button-next",
+    //           prevEl: ".swiper-button-prev",
+    //         },
+    //       });
+    //     });
+    //   },
+    // },
+  // },
 };
 </script>
 

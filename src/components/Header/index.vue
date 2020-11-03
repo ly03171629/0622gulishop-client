@@ -65,6 +65,9 @@ export default {
       keyword: "",
     };
   },
+  mounted(){
+    this.$bus.$on('clearKeyword',this.clearKeyword)
+  },
   methods: {
     toSearch() {
       // 1、路由传参的写法   字符串拼接（+）   模板字符串     对象（name）
@@ -121,6 +124,9 @@ export default {
 
       
     },
+    clearKeyword(){
+      this.keyword = ''
+    }
   },
 };
 </script>
