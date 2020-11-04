@@ -7,6 +7,7 @@ const mutations = {
     state.goodsListInfo = goodsListInfo
   }
 }
+
 const actions = {
   async getGoodsListInfo({commit},searchParams){
     const result = await reqGoodsListInfo(searchParams)
@@ -15,6 +16,7 @@ const actions = {
     }
   }
 }
+
 const getters = {
   //是把获取到的对象当中的数组全部计算出来
   goodsList(state){

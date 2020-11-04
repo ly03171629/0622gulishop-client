@@ -65,8 +65,8 @@ export default {
       keyword: "",
     };
   },
-  mounted(){
-    this.$bus.$on('clearKeyword',this.clearKeyword)
+  mounted() {
+    this.$bus.$on("clearKeyword", this.clearKeyword);
   },
   methods: {
     toSearch() {
@@ -80,29 +80,29 @@ export default {
       //   params: { keyword: this.keyword },
       // }).catch(() => {});
 
-
       let location = {
         name: "search",
         // query: { keyword1: this.keyword.toUpperCase() },
         params: { keyword: this.keyword },
+      };
+
+      if (this.$route.query) {
+        location.query = this.$route.query;
       }
 
-      if(this.$route.query){
-        location.query = this.$route.query
+      if (this.$route.path !== "/home") {
+        this.$router.replace(location); //从search跳转search用replace不保留历史记录
+      } else {
+        this.$router.push(location); //从home跳转search用push保留历史记录
       }
-
-
-      this.$router.push(location)
 
       // 3、能不能不用name,用path和params参数配合去写
       // 答：不能
-      // 不可以用path和params配置的组合, 
-		  // 只能用name和params配置的组合
+      // 不可以用path和params配置的组合,
+      // 只能用name和params配置的组合
       // query配置可以与path或name进行组合使用
       // 最终使用name和参数去配合是万能方案
       // this.$router.push({path:'/search',query:{keyword1:this.keyword.toUpperCase()}) 错的  不能用path和params去组合传参
-
-
 
       // 4、params参数如何可传可不传
       // 在路由配置的时候，接收参数的哪个名称后添加?
@@ -120,13 +120,11 @@ export default {
 
       // 6、 props 为了简化 组件当中使用路由参数的写法
       // 可以: 可以将query或且params参数映射/转换成props传递给路由组件对象
-		  // 实现: props: (route)=>({keyword:route.params.keyword, keyword1: route.query.keyword })
-
-      
+      // 实现: props: (route)=>({keyword:route.params.keyword, keyword1: route.query.keyword })
     },
-    clearKeyword(){
-      this.keyword = ''
-    }
+    clearKeyword() {
+      this.keyword = "";
+    },
   },
 };
 </script>
