@@ -54,6 +54,7 @@ export default {
     startEnd() {
       let { currentPageNum, continueNum, totalPageNum } = this;
       let start, end, disNum;
+
       if (totalPageNum <= continueNum) {
         //如果我计算出来的总页数比连续页数小
         start = 1;
@@ -76,9 +77,11 @@ export default {
           end -= disNum;
         }
       }
+
       return { start, end };
     },
   },
+  
 };
 </script>
 

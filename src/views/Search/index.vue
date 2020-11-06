@@ -95,9 +95,12 @@
               >
                 <div class="list-wrap">
                   <div class="p-img">
-                    <a href="item.html" target="_blank"
+                    <!-- <a href="item.html" target="_blank"
                       ><img :src="goods.defaultImg"
-                    /></a>
+                    /></a> -->
+                    <router-link :to="'/detail/' + goods.id">
+                      <img :src="goods.defaultImg" />
+                    </router-link>
                   </div>
                   <div class="price">
                     <strong>
@@ -106,12 +109,15 @@
                     </strong>
                   </div>
                   <div class="attr">
-                    <a
+                    <!-- <a
                       target="_blank"
                       href="item.html"
                       title="促销信息，下单即赠送三个月CIBN视频会员卡！【小米电视新品4A 58 火爆预约中】"
                       >{{ goods.title }}</a
-                    >
+                    > -->
+                    <router-link :to="'/detail/' + goods.id">
+                      {{ goods.title }}
+                    </router-link>
                   </div>
                   <div class="commit">
                     <i class="command">已有<span>2000</span>人评价</i>
@@ -184,6 +190,7 @@ export default {
     this.getGoodsListInfo();
   },
 
+
   data() {
     return {
       //是我们用户默认搜索的参数,初始化参数
@@ -195,7 +202,7 @@ export default {
         category3Id: "",
         categoryName: "",
         keyword: "",
-        order: "2:asc", //决定了排序的标志（1代表综合2代表价格）和排序的类型（asc升序desc降序）
+        order: "1:desc", //决定了排序的标志（1代表综合2代表价格）和排序的类型（asc升序desc降序）
         pageNo: 1,
         pageSize: 1,
         props: [],
@@ -339,7 +346,7 @@ export default {
   computed: {
     ...mapGetters(["goodsList"]),
     ...mapState({
-      goodsListInfo: (state) => state.search.goodsListInfo,
+      goodsListInfo: (state) => state.search.goodsListInfo
     }),
     sortFlag() {
       return this.searchParams.order.split(":")[0];

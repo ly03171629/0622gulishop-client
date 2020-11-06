@@ -10,6 +10,8 @@ const getters = {}
 import home from './home'
 import users from './users'
 import search from './search'
+import detail from './detail'
+import shopcart from './shopcart'
 
 
 export default new Vuex.Store({
@@ -21,6 +23,8 @@ export default new Vuex.Store({
   modules:{
     home,
     users,
-    search
+    search,
+    detail,
+    shopcart
   }
 })

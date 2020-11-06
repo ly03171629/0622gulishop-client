@@ -33,6 +33,10 @@ import routes from './routes'
 
 export default new VueRouter({
   mode:'history',
-  routes
+  routes,
+  //切换路由的时候保证跳转到的页面滚动位置在最上方
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  }
 })
 
