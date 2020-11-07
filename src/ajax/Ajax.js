@@ -3,6 +3,7 @@
 import axios from 'axios'
 import Nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
+import store from '@/store'
 
 const instance = axios.create({
   //1、 配置基础路径和超时限制
@@ -16,6 +17,14 @@ instance.interceptors.request.use((config) => {
   //无论是请求拦截器还是响应拦截器 都可以干两件事情 1、修改请求报文和响应报文   2、添加额外功能
   //请求拦截器回调函数，接收一个参数，叫congig，本质就是我们的请求报文
   // 在请求拦截器当中开启进度条（添加功能） nprogress
+
+  //每次请求都在请求头当中添加用户临时标识
+  let userTempId = store.state.users.userTempId
+  if(userTempId){
+    config.headers.userTempId = userTempId
+  }
+
+
   Nprogress.start()
   return config
 });

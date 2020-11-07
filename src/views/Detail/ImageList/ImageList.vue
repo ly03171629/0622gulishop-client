@@ -24,6 +24,31 @@ export default {
       defaultIndex: 0,
     };
   },
+
+  
+  // function name(a) {
+  //   a = 20
+  //   console.log(a)
+  // }
+  // var a
+  // a = 10
+  // name(a)
+  // console.log(a)
+
+
+  // function name(arr) {
+  //   arr[1] = 22
+  //   console.log(arr)
+  // }
+  // var arr
+  // arr = [1,2]
+  // name(arr)
+  // console.log(arr)
+
+
+
+
+
   methods: {
     //点击图片列表当中的图片切换选中橙色框
     //并且需要把点击的图片的下标传递给zoom，zoom当中需要展示的图片下标和点击的这个小图下标是一样的

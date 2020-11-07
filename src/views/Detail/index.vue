@@ -358,6 +358,8 @@ export default {
     getGoodsDetailInfo() {
       this.$store.dispatch("getGoodsDetailInfo", this.skuId);
     },
+
+
     changeCheck(saleAttrValue,saleAttrValueList){
       //排它
       //第一步让所有的属性值都变为同一种状态 
@@ -379,6 +381,7 @@ export default {
           alert('添加购物车成功，自动跳转到成功页面')
           //跳转之前把添加购物车成功页面所需要的数据传递过去或者存储
           sessionStorage.setItem('SKUINFO_KEY',JSON.stringify(this.skuInfo))
+          
           this.$router.push('/addcartsuccess?skuNum='+skuNum)
         }else{
           alert('添加购物车失败')

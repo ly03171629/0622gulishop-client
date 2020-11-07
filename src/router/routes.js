@@ -4,8 +4,13 @@ import Login from '@/views/Login'
 import Register from '@/views/Register'
 import Detail from '@/views/Detail'
 import AddCartSuccess from '@/views/AddCartSuccess'
+import ShopCart from '@/views/ShopCart'
 
 export default [
+  {
+    path:'/shopcart',
+    component:ShopCart
+  },
   {
     path:'/addcartsuccess',
     component:AddCartSuccess
