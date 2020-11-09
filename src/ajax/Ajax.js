@@ -24,6 +24,12 @@ instance.interceptors.request.use((config) => {
     config.headers.userTempId = userTempId
   }
 
+  //每次请求带上用户的登录标识
+  let token = store.state.users.userInfo.token
+  if(token){
+    config.headers.token = token
+  }
+
 
   Nprogress.start()
   return config

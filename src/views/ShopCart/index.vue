@@ -86,7 +86,8 @@
           <i class="summoney">{{ allMoney }}</i>
         </div>
         <div class="sumbtn">
-          <a class="sum-btn" href="###" target="_blank">结算</a>
+          <router-link to="/trade" class="sum-btn">结算</router-link>
+          <!-- <a class="sum-btn" href="###" target="_blank">结算</a> -->
         </div>
       </div>
     </div>
@@ -140,6 +141,7 @@ export default {
       } catch (error) {
         alert("修改购物车商品数量失败" + error.message);
       }
+      
     },
 
     //修改购物车选中状态单个的
