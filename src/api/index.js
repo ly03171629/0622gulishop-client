@@ -162,6 +162,75 @@ export const reqTradeInfo = () => {
   })
 }
 
+// 请求创建订单（点击提交按钮就会）
+// /api/order/auth/submitOrder?tradeNo={tradeNo}
+// POST
+// 参数  交易编号是query  其余是请求体data
+
+export const reqSubmitOrder = (tradeNo,tradeInfo) => {
+  return Ajax({
+    url:`/order/auth/submitOrder`,
+    method:'post',
+    params:{
+      tradeNo
+    },
+    data:tradeInfo
+  })
+}
+
+
+// /api/payment/weixin/createNative/{orderId}
+// get
+
+export const reqOrderInfo = (orderId) => {
+  return Ajax({
+    url:`/payment/weixin/createNative/${orderId}`,
+    method:'get'
+  })
+}
+
+
+// 请求查询订单的支付状态
+///api/payment/weixin/queryPayStatus/{orderId}
+// get
+export const reqPayStatus = (orderId) => {
+  return Ajax({
+    url:`/payment/weixin/queryPayStatus/${orderId}`,
+    method:'get'
+  })
+}
+
+
+//请求获取我的订单数据
+///api/order/auth/{page}/{limit}
+//get
+
+export const reqMyOrderInfo = (page,limit) => {
+  return Ajax({
+    url:`/order/auth/${page}/${limit}`,
+    method:'get'
+  })
+}
 
 
 
+
+
+// 统一暴露暴露出去就是export后面的对象
+// export {
+//   reqSubmitOrder,
+//   reqTradeInfo
+// }
+
+
+
+// 分别暴露，暴露的就是如下对象
+// {
+//   reqSubmitOrder,
+//   reqTradeInfo
+// }
+
+
+// import {reqSubmitOrder} from '@/api'
+
+// import * as API from '@/api'
