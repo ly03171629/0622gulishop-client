@@ -10,12 +10,27 @@ import * as API from '@/api'
 // reqCategoryList()
 import "swiper/css/swiper.css";
 
+import './validate' //引入和表单验证相关的模块
+
+
+//添加图片懒加载的功能   插件会为vue添加一个指令  v-lazy
+import VueLazyload from 'vue-lazyload'
+import loading from '@/assets/images/loading.gif'
+
+Vue.use(VueLazyload,{
+  loading
+})
+
+
 //按需引入element-ui当中的组件
 import { Message,MessageBox } from 'element-ui';
 
 Vue.prototype.$msgbox = MessageBox;
 Vue.prototype.$alert = MessageBox.alert;
 Vue.prototype.$message = Message;
+
+
+
 
 Vue.config.productionTip = false
 

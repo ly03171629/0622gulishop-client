@@ -67,7 +67,7 @@
                   class="center"
                 >
                   <ul class="unstyled">
-                    <li>总金额¥138.00</li>
+                    <li>总金额¥{{order.totalAmount}}</li>
                     <li>在线支付</li>
                   </ul>
                 </td>
@@ -76,7 +76,7 @@
                   width="8%"
                   class="center"
                 >
-                  <a href="#" class="btn">已完成 </a>
+                  <a href="#" class="btn">{{order.orderStatus === 'UNPAID'?'未支付':'已完成'}} </a>
                 </td>
                 <td
                   :rowspan="order.orderDetailList.length"

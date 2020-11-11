@@ -132,6 +132,8 @@ export default {
       // 这两个按钮分别对应的是.then和.catch
       try {
         const imgUrl = await QRCode.toDataURL(this.orderInfo.codeUrl); //生成的二位码图片链接
+
+
         this.$alert(`<img src="${imgUrl}"/>`, "请使用微信扫码支付", {
           dangerouslyUseHTMLString: true,
           showClose: false,
@@ -169,9 +171,8 @@ export default {
           }
         })
           .then()  //点击了确认按钮后的操作
-          .catch(); //点击了取消按钮后的操作
+          .catch(() => {}); //点击了取消按钮后的操作
           //无论是点击确认按钮还是点击取消按钮，都会强制的关闭messageBox
-
         if(!this.timer){
           //这个定时器就是来检查订单支付状态的
           //每3秒给后台发请求查询该订单的支付状态
@@ -191,7 +192,6 @@ export default {
             }
           },3000)
         }
-
       } catch (error) {
         alert("二维码生成失败");
       }
