@@ -25,11 +25,12 @@ instance.interceptors.request.use((config) => {
   }
 
   //每次请求带上用户的登录标识
-  let token = store.state.users.userInfo.token
+  // let token = store.state.users.userInfo.token
+  
+  let token = store.state.users.token
   if(token){
     config.headers.token = token
   }
-
 
   Nprogress.start()
   return config
@@ -53,3 +54,9 @@ instance.interceptors.response.use(
 
 
 export default instance
+
+// {
+//   default:instance
+// }
+// import {default as Ajax} from './xx'
+// import  Ajax from './xx'

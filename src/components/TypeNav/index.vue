@@ -228,6 +228,8 @@ export default {
 
         location.query = query;
 
+        // this.$router.push(location); 
+
 
         if(this.$route.params){
           location.params = this.$route.params

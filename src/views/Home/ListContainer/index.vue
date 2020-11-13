@@ -116,7 +116,7 @@ export default {
     // 一句话，在mounted内部保证不了页面结构完全形成之后再去 实例化swiper
     this.getBannerList();
 
-    // 在这里去实例化swiper不可以
+    // 在这里直接去实例化swiper不可以
     // setTimeout(() => {
     //   new Swiper(this.$refs.bannerSwiper, {
     //     loop: true, // 循环模式选项

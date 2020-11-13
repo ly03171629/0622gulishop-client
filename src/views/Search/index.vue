@@ -340,7 +340,6 @@ export default {
     changeNum(page){
       this.searchParams.pageNo = page
       this.getGoodsListInfo()
-      
     }
   },
   computed: {

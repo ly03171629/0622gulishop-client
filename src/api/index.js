@@ -216,6 +216,22 @@ export const reqMyOrderInfo = (page,limit) => {
 
 
 
+//根据token获取真正的用户信息
+// /api/user/passport/auth/getUserInfo
+// get
+
+export const reqTokenGetUserInfo = () => {
+  return Ajax({
+    url:'/user/passport/auth/getUserInfo',
+    method:'get'
+  })
+}
+
+
+
+
+
+
 // 统一暴露暴露出去就是export后面的对象
 // export {
 //   reqSubmitOrder,
