@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+    //1、arguments是什么
+    //2、为什么
+    //  1、可以替代形参
+    //  2、递归调用arguments.callee防止函数调用过程中，指向被修改
+    //  3、可以让一个函数具有多种功能
+
+
+
+    // 1
+    // function fn(a,b){
+    //   //可以不用形参
+    //   return arguments[0] + arguments[1]
+    // }
+    // fn(10,8)
+
+
+    //1、明显的结束条件
+    // 2、趋近于结束的趋势
+    // function add(n){
+    //   if(n < 1){
+    //     return
+    //   }
+    //   add = 1
+    //   console.log(n)
+    //   arguments.callee(n -1)
+    // }
+    // add(5)
+
+
+    // function fn2(a,b,c){
+    //   if(arguments.length > 2){
+    //     return a + b + c
+    //   }else{
+    //     return a -b
+    //   }
+    // }
+
+
+    // function fn3(node,content){
+    //   if(arguments.length == 2){
+    //     node.innerHTML = content
+    //   }else{
+    //     console.log(node.innerHTML)
+    //   }
+    // }
+
+
+
+  </script>
+</body>
+</html>

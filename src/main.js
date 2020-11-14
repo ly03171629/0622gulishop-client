@@ -23,8 +23,14 @@ Vue.use(VueLazyload,{
 
 
 //按需引入element-ui当中的组件
-import { Message,MessageBox } from 'element-ui';
+import { Message,MessageBox,Button,Input} from 'element-ui';
 
+//第一大类是组件标签形式的组件注册
+Vue.use(Button)  // Vue.component(Button.name,Button)
+Vue.use(Input)  // Vue.component(Button.name,Button)
+
+
+//第二大类是函数或者对象形式的组件注册
 Vue.prototype.$msgbox = MessageBox;
 Vue.prototype.$alert = MessageBox.alert;
 Vue.prototype.$message = Message;

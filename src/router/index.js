@@ -71,7 +71,7 @@ router.beforeEach(async (to,from,next) => {
       if(to.path === '/login'){
         next('/')
       }else{
-        //通过token去请求获取用户信息存储
+        //通过token 去请求获取用户信息存储
         try {
           //token获取用户信息成功
           await store.dispatch('tokenGetUserInfo')

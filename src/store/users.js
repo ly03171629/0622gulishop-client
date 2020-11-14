@@ -10,6 +10,10 @@ const state = {
 
   //第二版本
   //token用来保存登录后返回的token,一定要存储localStorage当中
+
+  // token:'',
+
+
   token:localStorage.getItem('TOKEN_KEY') || '',
   userInfo:{}  //不存localStorage
 
@@ -18,6 +22,9 @@ const mutations = {
   RECEIVETOKEN(state,token){
     state.token = token
   },
+
+
+
   //12版本都用
   RECEIVEUSERINFO(state,userInfo){
     state.userInfo = userInfo
@@ -44,6 +51,8 @@ const actions = {
     const result = await reqUserLogin(userInfo)
     if(result.code === 200){
       // commit('RECEIVEUSERINFO',result.data)
+
+
       //存储到localStorage当中是为了做自动登录
       // localStorage.setItem('USERINFO_KEY',JSON.stringify(result.data)) //自动登录
 
